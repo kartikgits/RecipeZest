@@ -63,7 +63,7 @@ package="com.northwindlabs.kartikeya.recipezest">
 
     <activity
         android:name="com.northwindlabs.kartikeya.recipezest.RecipeActivity"
-        android:theme="@style/AppTheme"
+        android:theme="@style/AppBarOverlay"
         android:screenOrientation="portrait"/>
 
 </application>

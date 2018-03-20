@@ -22,11 +22,12 @@ public class RecipeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
-        //to remove shadow under the action bar as we are using Facebook's support libraries
-        getSupportActionBar().setElevation(0);
-
         //Set the content of the activity to use activity_recipe.xml layout file
         setContentView(R.layout.activity_recipe);
+
+        //Set the toolbar as the action bar
+        Toolbar toolbar = findViewById(R.id.home_toolbar);
+        setSupportActionBar(toolbar);
 
         //Navigation drawer
         mDrawerLayout = findViewById(R.id.drawer_layout);
