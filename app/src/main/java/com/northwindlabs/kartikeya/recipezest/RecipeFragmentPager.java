@@ -25,8 +25,8 @@ public class RecipeFragmentPager extends FragmentPagerAdapter {
         this.mContext = context;
 
         this.tabText = new String[]{
-                "For you",
                 "Local Recipes",
+                "For you",
                 "Explore"
         };
     }
@@ -38,12 +38,12 @@ public class RecipeFragmentPager extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position){
         if (position == 0){
-            // Return the fragment for showing personal recipes to the user including weather based recipes.
-            return new ForYouFragment();
-        }
-        else if (position == 1){
             // Return the fragment showing Local recipes to the user.
             return new LocalRecipesFragment();
+        }
+        else if (position == 1){
+            // Return the fragment for showing personal recipes to the user including weather based recipes.
+            return new ForYouFragment();
         }
         else {
             // Return the fragment that will allow users to explore categorically all the recipes.
