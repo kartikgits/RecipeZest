@@ -66,6 +66,11 @@ package="com.northwindlabs.kartikeya.recipezest">
         android:theme="@style/AppBarOverlay"
         android:screenOrientation="portrait"/>
 
+    <activity
+        android:name=".MenuActivity"
+        android:theme="@style/AppBarOverlay"
+        android:screenOrientation="portrait" />
+
 </application>
 
 </manifest>

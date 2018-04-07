@@ -1,5 +1,6 @@
 package com.northwindlabs.kartikeya.recipezest;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -10,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
 /**
@@ -38,7 +40,8 @@ public class RecipeActivity extends AppCompatActivity {
 
         /* Navigation drawer */
         mDrawerLayout = findViewById(R.id.drawer_layout);
-
+        final boolean recipeActivityFlag;
+        recipeActivityFlag = getClass() == RecipeActivity.class;
         /**
          * When an item is tapped, this code sets the selected item as checked,
          * changing the list item's style to be highlighted because the list items
@@ -50,13 +53,54 @@ public class RecipeActivity extends AppCompatActivity {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                         /* set item as selected to persist highlight */
-                        menuItem.setChecked(true);
-                        /* close drawer when item is tapped */
-                        mDrawerLayout.closeDrawers();
+                        menuItem.setChecked(false);
+
                         /**
                          * Add code here to update the UI based on the item selected.
                          * For example, swap UI fragments here
                          */
+//                        android.support.v4.app.Fragment fragment = null;
+//                        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+                        if (menuItem.getItemId() != R.id.nav_home) {
+                            Intent intent = new Intent(getBaseContext(), MenuActivity.class);
+                            intent.putExtra("MenuItemId", menuItem.getItemId());
+                            startActivity(intent);
+                            RecipeActivity.this.onStop();
+                        } else {
+                            if (recipeActivityFlag) {
+                                //If already in present activity, do nothing.
+                            } else {
+                                Intent intent = new Intent(getBaseContext(), RecipeActivity.class);
+                                startActivity(intent);
+                            }
+                        }
+//                        switch (menuItem.getItemId()){
+//                            case R.id.nav_home:
+//                                //if (recipeActivityFlag){
+//                                //    Log.w("RecipeActivity","Current Activity already here");
+//                                //} else {
+//
+//                                //}
+//                            default:
+//                                if (recipeActivityFlag){
+//                                    Log.w("RecipeActivity","Current Activity already here");
+//                                } else {
+//                                    Intent intentD = new Intent(getParent(), RecipeActivity.class);
+//                                    startActivity(intentD);
+//                                }
+//
+//                        }
+//                        if (fragment != null) {
+//                            android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                            fragmentTransaction.replace(R.id.frame_container, fragment);
+//                            fragmentTransaction.commit();
+//                            fragmentManager.beginTransaction()
+//                                    .replace(R.id.frame_container, fragment).commit();
+//                        } else {
+//                            Log.e("RecipeActivity","Couldn't open desired fragment");
+//                        }
+                        /* close drawer when item is tapped */
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
                         return true;
                     }
                 }
@@ -87,6 +131,12 @@ public class RecipeActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    //Perform what happens when user migrates to another activity
+    @Override
+    public void onStop() {
+        super.onStop();
     }
 
 }
