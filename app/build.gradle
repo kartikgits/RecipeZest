@@ -28,6 +28,8 @@ dependencies {
     compile 'com.facebook.android:account-kit-sdk:4.29.0'
     compile 'com.facebook.android:facebook-android-sdk:4.29.0'
 
+    compile 'de.psdev.licensesdialog:licensesdialog:1.8.3'
+
     implementation 'com.android.support:appcompat-v7:27.1.0'
     implementation 'com.android.support:design:27.1.0'
 }

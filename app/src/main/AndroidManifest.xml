@@ -67,7 +67,27 @@ package="com.northwindlabs.kartikeya.recipezest">
         android:screenOrientation="portrait"/>
 
     <activity
-        android:name=".MenuActivity"
+        android:name=".AboutUsActivity"
+        android:theme="@style/AppBarOverlay"
+        android:screenOrientation="portrait" />
+
+    <activity
+        android:name=".FeedbackActivity"
+        android:theme="@style/AppBarOverlay"
+        android:screenOrientation="portrait" />
+
+    <activity
+        android:name=".MyFavoriteActivity"
+        android:theme="@style/AppBarOverlay"
+        android:screenOrientation="portrait" />
+
+    <activity
+        android:name=".SettingsActivity"
+        android:theme="@style/AppBarOverlay"
+        android:screenOrientation="portrait" />
+
+    <activity
+        android:name=".ShoppingListActivity"
         android:theme="@style/AppBarOverlay"
         android:screenOrientation="portrait" />
 
