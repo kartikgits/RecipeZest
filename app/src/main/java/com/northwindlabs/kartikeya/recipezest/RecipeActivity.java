@@ -1,10 +1,17 @@
 package com.northwindlabs.kartikeya.recipezest;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -13,6 +20,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Kartikeya on 2/14/2018.
@@ -21,10 +36,66 @@ import android.view.MenuItem;
 public class RecipeActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
+    private FusedLocationProviderClient mFusedLocationClient;
+
+    //Default location city set to Stockholm, Sweden if no location is detected due to one or more reasons
+    public static String city = "stockholm";
+
+    //Required default empty constructor
+    public RecipeActivity() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
+
         super.onCreate(savedInstanceState);
+
+        //Get user's fused (last known) location
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(RecipeActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // Permission is not granted
+            Toast.makeText(this, "No Location Permission. " + city, Toast.LENGTH_SHORT).show();
+        } else {
+            mFusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            // Got last known location. In some rare situations this can be null.
+                            if (location != null) {
+                                // Logic to handle location object
+                                double latitude = location.getLatitude();
+                                double longitude = location.getLongitude();
+                                Geocoder geocoder = null;
+                                List<Address> addresses = null;
+                                geocoder = new Geocoder(getBaseContext(), Locale.getDefault());
+
+                                try {
+                                    addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned
+                                    if (addresses == null) {
+                                        //Keep default city
+                                        Toast.makeText(getBaseContext(), "No Location Found " + city, Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        // If any additional address line present than only
+                                        city = addresses.get(0).getLocality();
+                                        if (city == null) {
+                                            city = addresses.get(0).getAdminArea();
+                                            if (city == null) {
+                                                Toast.makeText(getBaseContext(), "No City Found", Toast.LENGTH_SHORT).show();
+                                                city = "stockholm";
+                                            }
+                                        }
+                                    }
+                                } catch (Exception e) {
+                                    Log.e("RecipeActivity", "Null Address");
+                                }
+                            } else {
+                                Toast.makeText(getBaseContext(), "No Location Found", Toast.LENGTH_SHORT).show();
+                            }
+                            Toast.makeText(getBaseContext(), city, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
 
         /* Set the content of the activity to use activity_recipe.xml layout file */
         setContentView(R.layout.activity_recipe);
