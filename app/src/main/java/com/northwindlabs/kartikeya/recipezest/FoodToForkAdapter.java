@@ -51,7 +51,7 @@ public class FoodToForkAdapter extends ArrayAdapter<FoodToForkRecipe> {
 
         TextView publisherName = listItemView.findViewById(R.id.f2f_recipe_publisher);
         String mPublisherName = currentRecipe.getPublisher();
-        recipeName.setText(mPublisherName);
+        publisherName.setText(mPublisherName);
 
         ImageView smallRecipeImage = listItemView.findViewById(R.id.f2f_recipe_image);
         String link = currentRecipe.getImageUrl();
