@@ -79,6 +79,7 @@ public class LocalRecipesFragment extends Fragment implements LoaderManager.Load
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
     }
 
@@ -262,37 +263,37 @@ public class LocalRecipesFragment extends Fragment implements LoaderManager.Load
         if (RecipeActivity.city.equals("Dehradun")) {
             switch (weatherService.getWeatherCondition()) {
                 case "hot":
-                    currentRecipe = recipeDH.get(randomNumGenerator(9));
+                    currentRecipe = recipeDH.get(RandomsGenerator.getRandomIntegerBetweenRange(0, 9));
                     break;
 
                 case "cold":
-                    currentRecipe = recipeDC.get(randomNumGenerator(7));
+                    currentRecipe = recipeDC.get(RandomsGenerator.getRandomIntegerBetweenRange(0, 7));
                     break;
 
                 case "rainy":
-                    currentRecipe = recipeDR.get(randomNumGenerator(7));
+                    currentRecipe = recipeDR.get(RandomsGenerator.getRandomIntegerBetweenRange(0, 7));
                     break;
 
                 case "windy":
-                    currentRecipe = recipeDW.get(randomNumGenerator(6));
+                    currentRecipe = recipeDW.get(RandomsGenerator.getRandomIntegerBetweenRange(0, 6));
                     break;
             }
         } else if (RecipeActivity.city.equals("stockholm")) {
             switch (weatherService.getWeatherCondition()) {
                 case "hot":
-                    currentRecipe = recipeSH.get(randomNumGenerator(9));
+                    currentRecipe = recipeSH.get(RandomsGenerator.getRandomIntegerBetweenRange(0, 9));
                     break;
 
                 case "cold":
-                    currentRecipe = recipeSC.get(3);
+                    currentRecipe = recipeSC.get(RandomsGenerator.getRandomIntegerBetweenRange(0, 9));
                     break;
 
                 case "rainy":
-                    currentRecipe = recipeSR.get(randomNumGenerator(7));
+                    currentRecipe = recipeSR.get(RandomsGenerator.getRandomIntegerBetweenRange(0, 7));
                     break;
 
                 case "windy":
-                    currentRecipe = recipeSW.get(randomNumGenerator(6));
+                    currentRecipe = recipeSW.get(RandomsGenerator.getRandomIntegerBetweenRange(0, 6));
                     break;
             }
         }
@@ -300,11 +301,6 @@ public class LocalRecipesFragment extends Fragment implements LoaderManager.Load
         freeArrayListMemory();
         return currentRecipe;
 
-    }
-
-    private static int randomNumGenerator(int excludedMax) {
-        int randomNum = (int) Math.random() * excludedMax;
-        return randomNum;
     }
 
     private void freeArrayListMemory() {
