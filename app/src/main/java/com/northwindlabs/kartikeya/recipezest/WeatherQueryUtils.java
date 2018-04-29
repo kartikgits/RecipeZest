@@ -20,30 +20,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This is a helper class to request and receive data from Food2Fork
+ * This is a helper class to request and receive data from Yahoo Weather service
  */
 
-final class FoodToForkQueryUtils {
+final class WeatherQueryUtils {
 
     //Private constructor to ensure not to create objects of this class as instance is not needed
-    private FoodToForkQueryUtils() {
+    private WeatherQueryUtils() {
     }
 
-    //Adding the search_string to the URL of FoodToFork
-    //private static String setSearchLink(String)
-
     /**
-     * Return the list of FoodToForkRecipe objects that has been built up
+     * Return the Weather object that has been built up
      * from passing the JSON response
      */
-    private static List<FoodToForkRecipe> extractRecipesFromJSON(String FoodToForkRecipeJSON) {
+    private static Weather extractWeatherConditionFromJSON(String YahooQueryJSON) {
         //If JSON string is empty or null, return early
-        if (TextUtils.isEmpty(FoodToForkRecipeJSON)) {
+        if (TextUtils.isEmpty(YahooQueryJSON)) {
             return null;
         }
 
-        //Create an empty ArrayList that we can start adding recipes to
-        List<FoodToForkRecipe> foodToForkRecipes = new ArrayList<>();
+        Weather weather = null;
 
         /**
          * Try to parse the JSON response string. If there is a problem with the way
@@ -51,42 +47,31 @@ final class FoodToForkQueryUtils {
          */
         try {
             //Create a JSON Object from the JSON response string
-            JSONObject baseJSONResponse = new JSONObject(FoodToForkRecipeJSON);
+            JSONObject baseJSONResponse = new JSONObject(YahooQueryJSON);
 
-            // For a given recipe, extract the JSONArray of recipes from key "recipes"
-            JSONArray recipesArray = baseJSONResponse.getJSONArray("recipes");
+            //Extracting JSON as per the requirement
+            JSONObject query = baseJSONResponse.getJSONObject("query");
+            JSONObject item = query.getJSONObject("item");
+            JSONObject condition = item.getJSONObject("condition");
+            int conditionCode = condition.getInt("code");
+            int temp = condition.getInt("temp");
+            String mCondition = condition.getString("text");
 
-            //Extract values from array
-            for (int i = 0; i < recipesArray.length(); i++) {
-                JSONObject currentRecipe = recipesArray.getJSONObject(i);
-                String publisher = currentRecipe.getString("publisher");
-                String f2fUrl = currentRecipe.getString("f2f_url");
-                String title = currentRecipe.getString("title");
-                String recipeId = currentRecipe.getString("recipe_id");
-                String imageUrl = currentRecipe.getString("image_url");
-
-                // Create a new ForkToForkRecipe object with the title, f2fUrl, imageUrl, recipeId
-                // and publisher from the JSON response.
-                FoodToForkRecipe f2fRecipe = new FoodToForkRecipe(title, f2fUrl, imageUrl, recipeId, publisher);
-
-                // Add the new {@link Earthquake} to the list of earthquakes.
-                foodToForkRecipes.add(f2fRecipe);
-            }
+            weather = new Weather(mCondition, temp, conditionCode);
 
         } catch (JSONException e) {
-            Log.e("FoodToFortQueryUtils", "Problem parsing the FoodToFork JSON results", e);
+            Log.e("WeatherQueryUtils", "Problem parsing the Yahoo Weather JSON results", e);
         }
 
-        //Return the list of recipes
-        return foodToForkRecipes;
+        return weather;
     }
 
 
     /**
-     * Query the FoodToFork data-set and request a list of FoodToForkRecipe objects
+     * Query the Yahoo Weather service and request weather object
      */
-    public static List<FoodToForkRecipe> fetchRecipeData(String requestUrl) {
-        Log.i("FoodToForkUtils", "fetchRecipeData called.");
+    public static Weather fetchWeatherData(String requestUrl) {
+        Log.i("WeatherQueryUtils", "fetchWeatherData called.");
         // Create URL object
         URL url = createUrl(requestUrl);
 
@@ -95,14 +80,14 @@ final class FoodToForkQueryUtils {
         try {
             jsonResponse = makeHttpRequest(url);
         } catch (IOException e) {
-            Log.e("FoodToForkQueryUtils", "Problem making the HTTP request.", e);
+            Log.e("WeatherQueryUtils", "Problem making the HTTP request.", e);
         }
 
-        // Extract relevant fields from the JSON response and create a list of FoodToForkRecipe(s)
-        List<FoodToForkRecipe> f2fRecipes = extractRecipesFromJSON(jsonResponse);
+        // Extract relevant fields from the JSON response
+        Weather weather = extractWeatherConditionFromJSON(jsonResponse);
 
-        // Return the list of FoodToForkRecipe(s)
-        return f2fRecipes;
+        // Return the Weather object
+        return weather;
     }
 
 
@@ -132,10 +117,10 @@ final class FoodToForkQueryUtils {
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
             } else {
-                Log.e("FoodToForkQueryUtils", "Error response code: " + urlConnection.getResponseCode());
+                Log.e("WeatherQueryUtils", "Error response code: " + urlConnection.getResponseCode());
             }
         } catch (IOException e) {
-            Log.e("FoodToForkQueryUtils", "Problem retrieving the recipe JSON results.", e);
+            Log.e("WeatherQueryUtils", "Problem retrieving the recipe JSON results.", e);
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -178,7 +163,7 @@ final class FoodToForkQueryUtils {
         try {
             url = new URL(stringUrl);
         } catch (MalformedURLException e) {
-            Log.e("FoodToForkQueryUtils", "Problem building the URL ", e);
+            Log.e("WeatherQueryUtils", "Problem building the URL ", e);
         }
         return url;
     }

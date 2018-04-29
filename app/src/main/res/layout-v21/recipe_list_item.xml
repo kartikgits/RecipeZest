@@ -6,20 +6,22 @@
 
     <ImageView
         android:id="@+id/f2f_recipe_image"
-        android:layout_width="144dp"
+        android:layout_width="136dp"
         android:layout_height="match_parent"
         android:src="@color/colorPrimaryLight"
         android:paddingLeft="8dp"
-        android:paddingRight="8dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
         android:scaleType="fitXY" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:padding="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginRight="8dp">
 
         <TextView
             android:id="@+id/f2f_recipe_name"
@@ -28,18 +30,22 @@
             android:text="Recipe Name"
             android:ellipsize="end"
             android:maxLines="2"
-            android:textSize="16sp" />
+            android:textSize="24sp"
+            android:textColor="@color/accountLabel"
+            android:fontFamily="cursive" />
 
         <TextView
             android:id="@+id/f2f_recipe_publisher"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
             android:ellipsize="end"
             android:maxLines="1"
             android:text="Publisher Name"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:textColor="@color/accountText"
+            android:fontFamily="monospace"
+            android:layout_alignParentBottom="true" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

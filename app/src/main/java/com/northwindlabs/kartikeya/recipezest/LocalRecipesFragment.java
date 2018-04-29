@@ -20,6 +20,7 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Kartikeya on 2/15/2018.
@@ -28,11 +29,26 @@ import java.util.List;
 /**
  * To display 'Local Recipes' Fragment
  */
+
+//TODO (1) : Make this class load only once when starting the app
+
+
+
 public class LocalRecipesFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<FoodToForkRecipe>> {
 
     private static final String LOG_TAG = "LocalRecipesFragment";
 
     private AVLoadingIndicatorView avi;
+
+    ArrayList<String> recipeSH = new ArrayList<>();
+    ArrayList<String> recipeSC = new ArrayList<>();
+    ArrayList<String> recipeSR = new ArrayList<>();
+    ArrayList<String> recipeSW = new ArrayList<>();
+
+    ArrayList<String> recipeDC = new ArrayList<>();
+    ArrayList<String> recipeDR = new ArrayList<>();
+    ArrayList<String> recipeDH = new ArrayList<>();
+    ArrayList<String> recipeDW = new ArrayList<>();
 
     /**
      * Constant value for the FoodToFork-loader ID. We can choose any integer.
@@ -58,7 +74,7 @@ public class LocalRecipesFragment extends Fragment implements LoaderManager.Load
     /**
      * URL for requesting recipe data from FoodToFork
      */
-    private static final String F2F_REQUEST_URL = "http://food2fork.com/api/search?key=f0bcc213e09ecf97334084b8bc42b49a&q=shredded%20chicken";
+    private String f2fRequestUrl = "http://food2fork.com/api/search?key=f0bcc213e09ecf97334084b8bc42b49a&q=";
 
 
     @Override
@@ -131,7 +147,9 @@ public class LocalRecipesFragment extends Fragment implements LoaderManager.Load
     @Override
     public android.support.v4.content.Loader<List<FoodToForkRecipe>> onCreateLoader(int id, Bundle args) {
         Log.i(LOG_TAG, "onCreateLoader() called.");
-        return new FoodToForkRecipeLoader(getContext(), F2F_REQUEST_URL);
+        //Add here the method to get current recipe as this is the method to create recipe loader
+        f2fRequestUrl += getCurrentRecipe();
+        return new FoodToForkRecipeLoader(getContext(), f2fRequestUrl);
     }
 
 
@@ -160,5 +178,143 @@ public class LocalRecipesFragment extends Fragment implements LoaderManager.Load
         Log.i(LOG_TAG, "onLoaderReset called.");
         // Loader reset, so we can clear out our existing data.
         f2fAdapter.clear();
+    }
+
+
+    /**
+     * This method acts as an option to getting the current recipe keyword from FireBase
+     */
+    private String getCurrentRecipe() {
+
+        recipeSH.add("poached%20pears");
+        recipeSH.add("parfait");
+        recipeSH.add("apple%20pie");
+        recipeSH.add("swiss%20roll");
+        recipeSH.add("anchovy%20salad");
+        recipeSH.add("herring");
+        recipeSH.add("swedish%20pancake");
+        recipeSH.add("crisp%20bread");
+        recipeSH.add("veal%20burger");
+
+        recipeSC.add("janssons%20temptation");
+        recipeSC.add("meatballs");
+        recipeSC.add("gravlax");
+        recipeSC.add("meat%20patties");
+        recipeSC.add("black%20pudding");
+        recipeSC.add("beef%20soup");
+        recipeSC.add("nettle%20soup");
+        recipeSC.add("rice%20porridge");
+        recipeSC.add("danish%20pastry");
+
+        recipeSR.add("blueberry%20soup");
+        recipeSR.add("cinnamon%20buns");
+        recipeSR.add("saffron%20buns");
+        recipeSR.add("yellow%20pea%20soup");
+        recipeSR.add("crayfish");
+        recipeSR.add("waffles");
+        recipeSR.add("sausage%20and%20macaroni");
+
+        recipeSW.add("chives%20and%20sour%20cream");
+        recipeSW.add("peppermint%20candy");
+        recipeSW.add("semla");
+        recipeSW.add("chocolate%20ball");
+        recipeSW.add("toast%20skagen");
+        recipeSW.add("open%20sandwich");
+        recipeSW.add("hasselback%20potatoes");
+
+        recipeDH.add("dosa");
+        recipeDH.add("momo");
+        recipeDH.add("spring%20roll");
+        recipeDH.add("ras%20malai");
+        recipeDH.add("paneer");
+        recipeDH.add("lassi");
+        recipeDH.add("chaat");
+        recipeDH.add("rajma");
+        recipeDH.add("cold%20coffee");
+
+        recipeDC.add("kofte");
+        recipeDC.add("chole");
+        recipeDC.add("butter%20chicken");
+        recipeDC.add("tandoori%20naan");
+        recipeDC.add("dal%20makhani");
+        recipeDC.add("murgh%20mussallam");
+        recipeDC.add("paratha");
+
+        recipeDR.add("samosa");
+        recipeDR.add("pakora");
+        recipeDR.add("jalfrezi");
+        recipeDR.add("korma");
+        recipeDR.add("sambar");
+        recipeDR.add("ladoo");
+        recipeDR.add("baingan%20bharta");
+
+        recipeDW.add("halwa");
+        recipeDW.add("pastry");
+        recipeDW.add("cake");
+        recipeDW.add("kheer");
+        recipeDW.add("aloo%20gobi");
+        recipeDW.add("egg%20curry");
+
+        WeatherService weatherService = new WeatherService(RecipeActivity.city, getContext());
+
+        String currentRecipe = "soup";
+
+        if (RecipeActivity.city.equals("Dehradun")) {
+            switch (weatherService.getWeatherCondition()) {
+                case "hot":
+                    currentRecipe = recipeDH.get(randomNumGenerator(9));
+                    break;
+
+                case "cold":
+                    currentRecipe = recipeDC.get(randomNumGenerator(7));
+                    break;
+
+                case "rainy":
+                    currentRecipe = recipeDR.get(randomNumGenerator(7));
+                    break;
+
+                case "windy":
+                    currentRecipe = recipeDW.get(randomNumGenerator(6));
+                    break;
+            }
+        } else if (RecipeActivity.city.equals("stockholm")) {
+            switch (weatherService.getWeatherCondition()) {
+                case "hot":
+                    currentRecipe = recipeSH.get(randomNumGenerator(9));
+                    break;
+
+                case "cold":
+                    currentRecipe = recipeSC.get(3);
+                    break;
+
+                case "rainy":
+                    currentRecipe = recipeSR.get(randomNumGenerator(7));
+                    break;
+
+                case "windy":
+                    currentRecipe = recipeSW.get(randomNumGenerator(6));
+                    break;
+            }
+        }
+
+        freeArrayListMemory();
+        return currentRecipe;
+
+    }
+
+    private static int randomNumGenerator(int excludedMax) {
+        int randomNum = (int) Math.random() * excludedMax;
+        return randomNum;
+    }
+
+    private void freeArrayListMemory() {
+        recipeDC.clear();
+        recipeDH.clear();
+        recipeDR.clear();
+        recipeDW.clear();
+        recipeSC.clear();
+        recipeSR.clear();
+        recipeSW.clear();
+        recipeSH.clear();
     }
 }
