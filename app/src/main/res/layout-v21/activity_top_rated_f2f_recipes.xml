@@ -1,0 +1,34 @@
+<!-- Layout to contain contents of main body of screen (drawer will slide over this) -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.northwindlabs.kartikeya.recipezest.RecipeActivity">
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:orientation="vertical" />
+
+    <!-- Empty view is only visible when the list has no items. -->
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAppearance="?android:textAppearanceMedium" />
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/loading_spinner"
+        style="@style/AVLoadingIndicatorView.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:indicatorColor="@color/colorPrimaryLight"
+        app:indicatorName="BallGridPulseIndicator"
+        android:layout_centerInParent="true" />
+
+</RelativeLayout>

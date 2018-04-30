@@ -93,6 +93,13 @@ package="com.northwindlabs.kartikeya.recipezest">
         android:theme="@style/AppBarOverlay"
         android:screenOrientation="portrait" />
 
+    <activity
+        android:name=".TopRatedRecipesActivity"
+        android:theme="@style/AppTheme"
+        android:label="@string/label_top_rated_recipes"
+        android:parentActivityName=".RecipeActivity"
+        android:screenOrientation="portrait" />
+
 </application>
 
 </manifest>

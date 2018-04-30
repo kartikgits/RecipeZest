@@ -20,7 +20,6 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by Kartikeya on 2/15/2018.

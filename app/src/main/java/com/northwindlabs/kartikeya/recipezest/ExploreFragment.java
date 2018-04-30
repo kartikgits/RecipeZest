@@ -27,6 +27,9 @@ public class ExploreFragment extends Fragment {
         LinearLayout videosLayout = view.findViewById(R.id.videos_view);
         onClickView(videosLayout);
 
+        LinearLayout topRatedLayout = view.findViewById(R.id.top_rated_view);
+        onClickView(topRatedLayout);
+
 
         return view;
     }
@@ -47,7 +50,9 @@ public class ExploreFragment extends Fragment {
                 linearView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(getActivity().getApplicationContext(), "Test Videos", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getContext(), TopRatedRecipesActivity.class);
+                        startActivity(intent);
+                        onPause();
                     }
                 });
                 break;
