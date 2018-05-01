@@ -1,8 +1,15 @@
 package com.northwindlabs.kartikeya.recipezest;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class EdamamRecipe {
+
+/**
+ * This class implements Serializable interface because we want an object
+ * of this class to be passed as an intent from Activity X to Activity Y.
+ */
+
+public class EdamamRecipe implements Serializable {
 
     private String title;
     private String imageUrl;

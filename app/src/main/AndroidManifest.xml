@@ -96,7 +96,6 @@ package="com.northwindlabs.kartikeya.recipezest">
     <activity
         android:name=".TopRatedRecipesActivity"
         android:theme="@style/AppTheme"
-        android:label="@string/label_top_rated_recipes"
         android:parentActivityName=".RecipeActivity"
         android:screenOrientation="portrait" />
 
@@ -104,6 +103,12 @@ package="com.northwindlabs.kartikeya.recipezest">
         android:name=".EdamamRecipeActivity"
         android:theme="@style/AppTheme"
         android:parentActivityName=".RecipeActivity"
+        android:screenOrientation="portrait" />
+
+    <activity
+        android:name=".EdamamDetailRecipeActivity"
+        android:theme="@style/AppTheme"
+        android:parentActivityName=".EdamamRecipeActivity"
         android:screenOrientation="portrait" />
 
 </application>

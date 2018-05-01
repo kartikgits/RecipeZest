@@ -101,13 +101,17 @@ public class EdamamRecipeActivity extends AppCompatActivity implements LoaderMan
                 EdamamRecipe currentRecipe = eAdapter.getItem(position);
 
                 // Convert the String URL into a URI object (to pass into the Intent constructor)
-                Uri recipeUri = Uri.parse(currentRecipe.getUrl());
+//                Uri recipeUri = Uri.parse(currentRecipe.getUrl());
 
-                // Create a new intent to view the recipe URI
-                Intent websiteIntent = new Intent(Intent.ACTION_VIEW, recipeUri);
+                Intent intent = new Intent(getBaseContext(), EdamamDetailRecipeActivity.class);
+                intent.putExtra("edamamRecipeObject", currentRecipe);
+                startActivity(intent);
 
-                // Send the intent to launch a new activity
-                startActivity(websiteIntent);
+//                // Create a new intent to view the recipe URI
+//                Intent websiteIntent = new Intent(Intent.ACTION_VIEW, recipeUri);
+//
+//                // Send the intent to launch a new activity
+//                startActivity(websiteIntent);
             }
         });
         // Get a reference to the LoaderManager, in order to interact with loaders.
