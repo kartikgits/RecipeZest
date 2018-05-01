@@ -30,6 +30,26 @@ public class ExploreFragment extends Fragment {
         LinearLayout topRatedLayout = view.findViewById(R.id.top_rated_view);
         onClickView(topRatedLayout);
 
+        LinearLayout veganLayout = view.findViewById(R.id.vegan_view);
+        onClickView(veganLayout);
+
+        LinearLayout lowFatLayout = view.findViewById(R.id.low_fat_view);
+        onClickView(lowFatLayout);
+
+        LinearLayout sugarConsciousLayout = view.findViewById(R.id.sugar_conscious_view);
+        onClickView(sugarConsciousLayout);
+
+        LinearLayout balancedLayout = view.findViewById(R.id.balanced_nutrition_view);
+        onClickView(balancedLayout);
+
+        LinearLayout alcoholFreeLayout = view.findViewById(R.id.alcohol_free_view);
+        onClickView(alcoholFreeLayout);
+
+        LinearLayout highProteinLayout = view.findViewById(R.id.high_protein_view);
+        onClickView(highProteinLayout);
+
+        LinearLayout vegetarianLayout = view.findViewById(R.id.vegetarian_view);
+        onClickView(vegetarianLayout);
 
         return view;
     }
@@ -58,27 +78,97 @@ public class ExploreFragment extends Fragment {
                 break;
 
             case R.id.vegan_view:
+                linearView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getContext(), EdamamRecipeActivity.class);
+                        intent.putExtra("recipeCategory", "vegan");
+                        intent.putExtra("DHLabel", "health");
+                        startActivity(intent);
+                        onPause();
+                    }
+                });
                 break;
 
             case R.id.low_fat_view:
+                linearView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getContext(), EdamamRecipeActivity.class);
+                        intent.putExtra("recipeCategory", "low-fat");
+                        intent.putExtra("DHLabel", "diet");
+                        startActivity(intent);
+                        onPause();
+                    }
+                });
                 break;
 
             case R.id.sugar_conscious_view:
+                linearView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getContext(), EdamamRecipeActivity.class);
+                        intent.putExtra("recipeCategory", "sugar-conscious");
+                        intent.putExtra("DHLabel", "health");
+                        startActivity(intent);
+                        onPause();
+                    }
+                });
                 break;
 
             case R.id.ingredients_based_view:
                 break;
 
             case R.id.alcohol_free_view:
+                linearView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getContext(), EdamamRecipeActivity.class);
+                        intent.putExtra("recipeCategory", "alcohol-free");
+                        intent.putExtra("DHLabel", "health");
+                        startActivity(intent);
+                        onPause();
+                    }
+                });
                 break;
 
             case R.id.balanced_nutrition_view:
+                linearView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getContext(), EdamamRecipeActivity.class);
+                        intent.putExtra("recipeCategory", "balanced");
+                        intent.putExtra("DHLabel", "diet");
+                        startActivity(intent);
+                        onPause();
+                    }
+                });
                 break;
 
             case R.id.high_protein_view:
+                linearView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getContext(), EdamamRecipeActivity.class);
+                        intent.putExtra("recipeCategory", "high-protein");
+                        intent.putExtra("DHLabel", "diet");
+                        startActivity(intent);
+                        onPause();
+                    }
+                });
                 break;
 
             case R.id.vegetarian_view:
+                linearView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getContext(), EdamamRecipeActivity.class);
+                        intent.putExtra("recipeCategory", "vegetarian");
+                        intent.putExtra("DHLabel", "health");
+                        startActivity(intent);
+                        onPause();
+                    }
+                });
                 break;
         }
     }
