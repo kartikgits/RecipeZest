@@ -94,12 +94,13 @@
             android:id="@+id/edamam_ingredients_list_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="48dp"
             android:divider="@null"
             android:dividerHeight="0dp"
             android:orientation="vertical" />
 
-        <TextView
+        <Button
+            android:id="@+id/directions_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

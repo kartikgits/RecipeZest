@@ -1,10 +1,13 @@
 package com.northwindlabs.kartikeya.recipezest;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -12,6 +15,8 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import javax.annotation.Nullable;
 
 public class EdamamDetailRecipeActivity extends AppCompatActivity {
 
@@ -24,7 +29,7 @@ public class EdamamDetailRecipeActivity extends AppCompatActivity {
 
         //Get Intent and extract object
         Intent intent = getIntent();
-        EdamamRecipe currentRecipe = (EdamamRecipe) intent.getSerializableExtra("edamamRecipeObject");
+        final EdamamRecipe currentRecipe = (EdamamRecipe) intent.getSerializableExtra("edamamRecipeObject");
 
         ImageView recipeImage = findViewById(R.id.recipe_image);
         String link = currentRecipe.getImageUrl();
@@ -64,5 +69,20 @@ public class EdamamDetailRecipeActivity extends AppCompatActivity {
         // Set the adapter on the ListView
         // so the list can be populated in the user interface
         ingredientsListView.setAdapter(eAdapter);
+
+        Button directionsButton = findViewById(R.id.directions_button);
+        directionsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Convert the String URL into a URI object (to pass into the Intent constructor)
+                Uri recipeUri = Uri.parse(currentRecipe.getUrl());
+
+                // Create a new intent to view the recipe URI
+                Intent websiteIntent = new Intent(Intent.ACTION_VIEW, recipeUri);
+
+                // Send the intent to launch a new activity
+                startActivity(websiteIntent);
+            }
+        });
     }
 }
