@@ -7,10 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -84,5 +87,36 @@ public class EdamamDetailRecipeActivity extends AppCompatActivity {
                 startActivity(websiteIntent);
             }
         });
+
+        // Set an item click listener on the ListView, which sends an intent to a web browser
+        // to open a website with more information about the selected recipe.
+        ingredientsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                // Find the current recipe that was clicked on
+                String currentIngredient = eAdapter.getItem(position);
+
+                // Convert the String URL into a URI object (to pass into the Intent constructor)
+//                Uri recipeUri = Uri.parse(currentRecipe.getUrl());
+
+                Toast.makeText(getBaseContext(), currentIngredient, Toast.LENGTH_SHORT).show();
+
+//                // Create a new intent to view the recipe URI
+//                Intent websiteIntent = new Intent(Intent.ACTION_VIEW, recipeUri);
+//
+//                // Send the intent to launch a new activity
+//                startActivity(websiteIntent);
+            }
+        });
+
+//        Button listAddButton = findViewById(R.id.add_to_list_button);
+//        listAddButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                for (int i = 0; i<currentRecipe.getIngredientsArrayListSize(); i++){
+//                    if (eAdapter.getItem(i).)
+//                }
+//            }
+//        });
     }
 }

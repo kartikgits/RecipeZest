@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <CheckBox
+    <TextView
         android:id="@+id/list_item_ingredient"
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="4dp"
@@ -14,8 +14,8 @@
         android:text="Ingredient 1"
         android:maxLines="2"
         android:ellipsize="end"
-        android:textColor="@color/colorPrimaryText"
-        android:textSize="14sp"
+        android:textColor="@color/text_color"
+        android:textSize="22sp"
         android:background="@color/colorDividerLight" />
 
 </LinearLayout>

@@ -1,5 +1,7 @@
 package com.northwindlabs.kartikeya.recipezest;
 
+import android.widget.CheckBox;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 

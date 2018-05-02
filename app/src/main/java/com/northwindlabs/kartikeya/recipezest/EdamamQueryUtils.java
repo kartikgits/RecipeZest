@@ -3,6 +3,7 @@ package com.northwindlabs.kartikeya.recipezest;
 
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.CheckBox;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,6 +19,8 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * This is a helper class to request and receive data from Edamam

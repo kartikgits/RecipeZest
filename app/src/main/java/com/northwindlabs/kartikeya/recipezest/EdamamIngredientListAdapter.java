@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class EdamamIngredientListAdapter extends ArrayAdapter<String> {
 
         String currentIngredient = getItem(position);
         //Get the view id
-        CheckBox ingredient = listItemView.findViewById(R.id.list_item_ingredient);
+        TextView ingredient = listItemView.findViewById(R.id.list_item_ingredient);
         //Get the view data to be set
         String ingredientData = currentIngredient;
         //Set the data in the view

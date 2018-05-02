@@ -1,6 +1,8 @@
 package com.northwindlabs.kartikeya.recipezest;
 
 import android.Manifest;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -18,13 +20,19 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.mancj.materialsearchbar.MaterialSearchBar;
 
 import java.util.List;
 import java.util.Locale;
@@ -33,7 +41,9 @@ import java.util.Locale;
  * Created by Kartikeya on 2/14/2018.
  */
 
-public class RecipeActivity extends AppCompatActivity {
+public class RecipeActivity extends AppCompatActivity implements MaterialSearchBar.OnSearchActionListener {
+
+    MaterialSearchBar searchBar;
 
     private DrawerLayout mDrawerLayout;
     private FusedLocationProviderClient mFusedLocationClient;
@@ -99,6 +109,13 @@ public class RecipeActivity extends AppCompatActivity {
 
         /* Set the content of the activity to use activity_recipe.xml layout file */
         setContentView(R.layout.activity_recipe);
+
+        searchBar = findViewById(R.id.searchBar);
+        searchBar.setOnSearchActionListener(this);
+        searchBar.setCardViewElevation(10);
+        searchBar.setSpeechMode(false);
+        searchBar.setHint("Search Recipe Zest");
+        searchBar.hideSuggestionsList();
 
         /* Set the toolbar as the action bar */
         Toolbar toolbar = findViewById(R.id.home_toolbar);
@@ -205,6 +222,47 @@ public class RecipeActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public void onSearchStateChanged(boolean enabled) {
+    }
+
+    @Override
+    public void onSearchConfirmed(CharSequence text) {
+        String splitSearch = text.toString();
+        splitSearch = splitSearch.replaceAll(" ", "%20");
+        if (splitSearch != null && !TextUtils.isEmpty(splitSearch)) {
+            Intent intent = new Intent(RecipeActivity.this, SearchResultsActivity.class);
+            intent.putExtra("searchKeyword", splitSearch);
+            startActivity(intent);
+        } else {
+            Toast.makeText(RecipeActivity.this, "No Recipe Searched", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onButtonClicked(int buttonCode) {
+        switch (buttonCode) {
+            case MaterialSearchBar.BUTTON_NAVIGATION:
+                mDrawerLayout.openDrawer(Gravity.LEFT);
+                break;
+            case MaterialSearchBar.BUTTON_SPEECH:
+                break;
+            case MaterialSearchBar.BUTTON_BACK:
+                searchBar.disableSearch();
+                break;
+        }
     }
 
 }
