@@ -15,12 +15,15 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import static com.northwindlabs.kartikeya.recipezest.RZestContract.IngredientsTable.COLUMN_RECIPE_NAME;
 import static com.northwindlabs.kartikeya.recipezest.RZestContract.IngredientsTable.TABLE_NAME;
+import static com.northwindlabs.kartikeya.recipezest.RZestContract.IngredientsTable._ID;
 
 public class ShoppingListActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
@@ -144,6 +147,36 @@ public class ShoppingListActivity extends AppCompatActivity {
         // so the list can be populated in the user interface
         ingredientsListView.setAdapter(eAdapter);
 
+        ingredientsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                String currentIngredient = eAdapter.getItem(position);
+
+                RecipeZestDBHelper mDbHelper = new RecipeZestDBHelper(getBaseContext());
+                SQLiteDatabase dbr = mDbHelper.getReadableDatabase();
+                Cursor mCursor = dbr.rawQuery("SELECT " + _ID + " FROM " + TABLE_NAME + " where " + COLUMN_RECIPE_NAME + " = \"" + currentIngredient + "\"", null);
+                int minId = -1;
+                int columnIndex = mCursor.getColumnIndex(RZestContract.IngredientsTable._ID);
+                for (mCursor.moveToFirst(); !mCursor.isAfterLast(); mCursor.moveToNext()) {
+                    // The Cursor is now set to the right position
+                    minId = mCursor.getInt(columnIndex);
+                    break;
+                }
+                mCursor.close();
+                if (minId != -1) {
+                    // Create and/or open a database to read from it
+                    SQLiteDatabase db = mDbHelper.getWritableDatabase();
+                    db.execSQL("delete from " + TABLE_NAME + " where " + _ID + " = " + minId);
+                }
+                //To refresh activity
+                Intent intent = getIntent();
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                finish();
+                startActivity(intent);
+                return true;
+            }
+        });
+
         Button mailListButton = findViewById(R.id.mail_button);
         mailListButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,6 +205,7 @@ public class ShoppingListActivity extends AppCompatActivity {
                 // Create and/or open a database to read from it
                 SQLiteDatabase db = mDbHelper.getReadableDatabase();
                 db.execSQL("delete from " + TABLE_NAME);
+                //To refresh activity
                 Intent intent = getIntent();
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 finish();
