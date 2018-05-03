@@ -1,6 +1,8 @@
 package com.northwindlabs.kartikeya.recipezest;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -11,9 +13,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class ShoppingListActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
+    EdamamIngredientListAdapter eAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +107,37 @@ public class ShoppingListActivity extends AppCompatActivity {
                     }
                 }
         );
+
+        ListView ingredientsListView = findViewById(R.id.edamam_ingredients_list_view);
+
+        // Create a new adapter that takes an empty list of recipes as input
+        eAdapter = new EdamamIngredientListAdapter(this, new ArrayList<String>());
+
+        // To access our database, we instantiate our subclass of SQLiteOpenHelper
+        // and pass the context, which is the current activity.
+        RecipeZestDBHelper mDbHelper = new RecipeZestDBHelper(this);
+
+        // Create and/or open a database to read from it
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+        // Perform this raw SQL query "SELECT * FROM ingredients"
+        // to get a Cursor that contains all rows from the ingredients table.
+        Cursor mCursor = db.rawQuery("SELECT * FROM " + RZestContract.IngredientsTable.TABLE_NAME, null);
+
+        ArrayList<String> ingredientsArrayList = new ArrayList<>();
+        int columnIndex = mCursor.getColumnIndex(RZestContract.IngredientsTable.COLUMN_RECIPE_NAME);
+        for (mCursor.moveToFirst(); !mCursor.isAfterLast(); mCursor.moveToNext()) {
+            // The Cursor is now set to the right position
+            ingredientsArrayList.add(mCursor.getString(columnIndex));
+        }
+        //Invalidating the cursor, hence, releasing the resources.
+        mCursor.close();
+
+        eAdapter.addAll(ingredientsArrayList);
+
+        // Set the adapter on the ListView
+        // so the list can be populated in the user interface
+        ingredientsListView.setAdapter(eAdapter);
     }
 
     //Open the drawer when the button is tapped

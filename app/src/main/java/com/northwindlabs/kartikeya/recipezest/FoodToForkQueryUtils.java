@@ -60,7 +60,7 @@ final class FoodToForkQueryUtils {
             for (int i = 0; i < recipesArray.length(); i++) {
                 JSONObject currentRecipe = recipesArray.getJSONObject(i);
                 String publisher = currentRecipe.getString("publisher");
-                String f2fUrl = currentRecipe.getString("f2f_url");
+                String f2fUrl = currentRecipe.getString("source_url");
                 String title = currentRecipe.getString("title");
                 String recipeId = currentRecipe.getString("recipe_id");
                 String imageUrl = currentRecipe.getString("image_url");

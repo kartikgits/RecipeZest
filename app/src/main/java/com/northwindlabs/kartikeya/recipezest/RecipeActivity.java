@@ -128,6 +128,7 @@ public class RecipeActivity extends AppCompatActivity implements MaterialSearchB
 
         /* Navigation drawer */
         mDrawerLayout = findViewById(R.id.drawer_layout);
+
         /**
          * When an item is tapped, this code sets the selected item as checked,
          * changing the list item's style to be highlighted because the list items

@@ -1,6 +1,8 @@
 package com.northwindlabs.kartikeya.recipezest;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +26,9 @@ import javax.annotation.Nullable;
 public class EdamamDetailRecipeActivity extends AppCompatActivity {
 
     EdamamIngredientListAdapter eAdapter;
+
+    private RecipeZestDBHelper mDbHelper;
+    private SQLiteDatabase db;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,9 +66,6 @@ public class EdamamDetailRecipeActivity extends AppCompatActivity {
 
         ListView ingredientsListView = findViewById(R.id.edamam_ingredients_list_view);
 
-        //Set all the values to the adapter
-        Log.e("EdamamDetailRecipe", currentRecipe.getIngredients().toString());
-
         // Create a new adapter that takes an empty list of recipes as input
         eAdapter = new EdamamIngredientListAdapter(this, new ArrayList<String>());
 
@@ -88,6 +90,9 @@ public class EdamamDetailRecipeActivity extends AppCompatActivity {
             }
         });
 
+        //For creating key-value pairs to be stored in database
+        final ContentValues values = new ContentValues();
+
         // Set an item click listener on the ListView, which sends an intent to a web browser
         // to open a website with more information about the selected recipe.
         ingredientsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -99,7 +104,9 @@ public class EdamamDetailRecipeActivity extends AppCompatActivity {
                 // Convert the String URL into a URI object (to pass into the Intent constructor)
 //                Uri recipeUri = Uri.parse(currentRecipe.getUrl());
 
-                Toast.makeText(getBaseContext(), currentIngredient, Toast.LENGTH_SHORT).show();
+                values.put(RZestContract.IngredientsTable.COLUMN_RECIPE_NAME, currentIngredient);
+                insertIngredientToDatabase(values);
+
 
 //                // Create a new intent to view the recipe URI
 //                Intent websiteIntent = new Intent(Intent.ACTION_VIEW, recipeUri);
@@ -118,5 +125,25 @@ public class EdamamDetailRecipeActivity extends AppCompatActivity {
 //                }
 //            }
 //        });
+    }
+
+    private void insertIngredientToDatabase(ContentValues value) {
+        // Create database helper
+        mDbHelper = new RecipeZestDBHelper(this);
+
+        // Gets the database in write mode
+        db = mDbHelper.getWritableDatabase();
+
+        // Insert a new row for ingeredient in the database, returning the ID of that new row.
+        long newRowId = db.insert(RZestContract.IngredientsTable.TABLE_NAME, null, value);
+
+        // Show a toast message depending on whether or not the insertion was successful
+        if (newRowId == -1) {
+            // If the row ID is -1, then there was an error with insertion.
+            Toast.makeText(this, "Error with saving", Toast.LENGTH_SHORT).show();
+        } else {
+            // Otherwise, the insertion was successful and we can display a toast with the row ID.
+            Toast.makeText(this, "Added to Shopping List ", Toast.LENGTH_SHORT).show();
+        }
     }
 }
