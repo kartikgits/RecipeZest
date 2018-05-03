@@ -3,6 +3,7 @@ package com.northwindlabs.kartikeya.recipezest;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -13,9 +14,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+
+import static com.northwindlabs.kartikeya.recipezest.RZestContract.IngredientsTable.TABLE_NAME;
 
 public class ShoppingListActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
@@ -122,9 +127,9 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         // Perform this raw SQL query "SELECT * FROM ingredients"
         // to get a Cursor that contains all rows from the ingredients table.
-        Cursor mCursor = db.rawQuery("SELECT * FROM " + RZestContract.IngredientsTable.TABLE_NAME, null);
+        Cursor mCursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
 
-        ArrayList<String> ingredientsArrayList = new ArrayList<>();
+        final ArrayList<String> ingredientsArrayList = new ArrayList<>();
         int columnIndex = mCursor.getColumnIndex(RZestContract.IngredientsTable.COLUMN_RECIPE_NAME);
         for (mCursor.moveToFirst(); !mCursor.isAfterLast(); mCursor.moveToNext()) {
             // The Cursor is now set to the right position
@@ -138,6 +143,41 @@ public class ShoppingListActivity extends AppCompatActivity {
         // Set the adapter on the ListView
         // so the list can be populated in the user interface
         ingredientsListView.setAdapter(eAdapter);
+
+        Button mailListButton = findViewById(R.id.mail_button);
+        mailListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String mailContent = "";
+                int j = 1;
+                for (int i = 0; i < ingredientsArrayList.size(); i++) {
+                    mailContent = mailContent + "\n" + Integer.toString(j) + ". " + ingredientsArrayList.get(i);
+                    j++;
+                }
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Recipe Shopping list");
+                intent.putExtra(Intent.EXTRA_TEXT, mailContent);
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+            }
+        });
+
+        Button clearListButton = findViewById(R.id.clear_button);
+        clearListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RecipeZestDBHelper mDbHelper = new RecipeZestDBHelper(getBaseContext());
+                // Create and/or open a database to read from it
+                SQLiteDatabase db = mDbHelper.getReadableDatabase();
+                db.execSQL("delete from " + TABLE_NAME);
+                Intent intent = getIntent();
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                finish();
+                startActivity(intent);
+            }
+        });
     }
 
     //Open the drawer when the button is tapped
