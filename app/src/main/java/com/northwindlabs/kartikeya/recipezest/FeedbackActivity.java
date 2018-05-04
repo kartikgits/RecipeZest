@@ -1,6 +1,7 @@
 package com.northwindlabs.kartikeya.recipezest;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -11,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 
 public class FeedbackActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
@@ -101,6 +104,22 @@ public class FeedbackActivity extends AppCompatActivity {
                     }
                 }
         );
+
+    }
+
+    public void sendFeedback(View v) {
+        EditText message = findViewById(R.id.message);
+        String body = message.getText().toString();
+        String[] recipient = {"nehapanwar26198@gmail.com"};
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:"));
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Recipe Zest Feedback");
+        intent.putExtra(Intent.EXTRA_EMAIL, recipient);
+        intent.putExtra(Intent.EXTRA_TEXT, body);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+
     }
 
     //Open the drawer when the button is tapped
