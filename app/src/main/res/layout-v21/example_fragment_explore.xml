@@ -2,421 +2,245 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:drawSelectorOnTop="true"
     android:fillViewport="true">
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/videos_view"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+        <RelativeLayout
+            android:id="@+id/top_rated_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:orientation="horizontal"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="@color/colorDividerLight">
 
-            <LinearLayout
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@color/colorDivider">
+                android:src="@drawable/top_rated"
+                android:layout_marginBottom="20dp"
+                android:padding="16dp" />
 
-                <ImageView
-                    android:padding="8dp"
-                    android:src="@drawable/videos"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="5" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2"
-                    android:fontFamily="monospace"
-                    android:gravity="center"
-                    android:textSize="16sp"
-                    android:text="Videos"
-                    android:textColor="@color/colorTextAndIcons" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"></LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_weight="1">
-
-            <LinearLayout
-                android:id="@+id/top_rated_view"
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@color/colorDivider">
+                android:layout_height="20dp"
+                android:text="Top Rated"
+                android:textColor="@color/ak_text"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:fontFamily="monospace" />
 
-                <ImageView
-                    android:padding="8dp"
-                    android:src="@drawable/top_rated"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="5"
-                    android:tint="@color/colorTextAndIcons" />
+        </RelativeLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2"
-                    android:fontFamily="monospace"
-                    android:gravity="center"
-                    android:textSize="16sp"
-                    android:text="Top Rated"
-                    android:textColor="@color/colorTextAndIcons" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:id="@+id/vegan_view"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_weight="1">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@color/colorDividerLight">
-
-                <ImageView
-                    android:padding="8dp"
-                    android:src="@drawable/vegan"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="5"
-                    android:tint="@color/colorTextAndIcons" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2"
-                    android:fontFamily="monospace"
-                    android:gravity="center"
-                    android:textSize="16sp"
-                    android:text="Vegan"
-                    android:textColor="@color/colorTextAndIcons" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"></LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/low_fat_view"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_weight="1">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@color/colorDividerLight">
-
-                <ImageView
-                    android:padding="8dp"
-                    android:src="@drawable/low_fat"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="5" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2"
-                    android:fontFamily="monospace"
-                    android:gravity="center"
-                    android:textSize="16sp"
-                    android:text="Low Fat"
-                    android:textColor="@color/colorTextAndIcons" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:id="@+id/sugar_conscious_view"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_weight="1">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@color/colorDivider">
-
-                <ImageView
-                    android:padding="8dp"
-                    android:src="@drawable/sugar_free"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="5" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2"
-                    android:fontFamily="monospace"
-                    android:gravity="center"
-                    android:textSize="16sp"
-                    android:text="Sugar Conscious"
-                    android:textColor="@color/colorTextAndIcons" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"></LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ingredients_based_view"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_weight="1">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@color/colorDivider">
-
-                <ImageView
-                    android:padding="8dp"
-                    android:src="@drawable/ingredient_based"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="5"
-                    android:tint="@color/colorTextAndIcons" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2"
-                    android:fontFamily="monospace"
-                    android:gravity="center"
-                    android:textSize="16sp"
-                    android:text="Ingredients Based"
-                    android:textColor="@color/colorTextAndIcons" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/balanced_nutrition_view"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:orientation="horizontal"
             android:layout_weight="1">
 
-            <LinearLayout
+            <ImageView
+                android:padding="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@color/colorDividerLight">
+                android:src="@drawable/balanced"
+                android:layout_marginBottom="20dp"
+                android:tint="#757575" />
 
-                <ImageView
-                    android:padding="8dp"
-                    android:src="@drawable/balanced"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="5"
-                    android:tint="@color/colorTextAndIcons" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="Balanced Nutrition"
+                android:textColor="@color/ak_text"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:fontFamily="monospace" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2"
-                    android:fontFamily="monospace"
-                    android:gravity="center"
-                    android:textSize="16sp"
-                    android:text="Balanced Nutrition"
-                    android:textColor="@color/colorTextAndIcons" />
+        </RelativeLayout>
 
-            </LinearLayout>
 
-        </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/low_fat_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:background="@color/colorDividerLight">
 
-        <LinearLayout
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"></LinearLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/low_fat"
+                android:layout_marginBottom="20dp"
+                android:padding="16dp"
+                android:tint="#000000" />
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="Low Fat"
+                android:textColor="@color/ak_text"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:fontFamily="monospace" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/sugar_conscious_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:orientation="horizontal"
             android:layout_weight="1">
 
-            <LinearLayout
-                android:id="@+id/alcohol_free_view"
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@color/colorDividerLight">
+                android:src="@drawable/sugar_free"
+                android:layout_marginBottom="20dp"
+                android:padding="16dp" />
 
-                <ImageView
-                    android:padding="8dp"
-                    android:src="@drawable/alcohol_free"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="5" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="Sugar Conscious"
+                android:textColor="@color/ak_text"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:fontFamily="monospace" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2"
-                    android:fontFamily="monospace"
-                    android:gravity="center"
-                    android:textSize="16sp"
-                    android:text="Alcohol Free"
-                    android:textColor="@color/colorTextAndIcons" />
-
-            </LinearLayout>
-
-        </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/vegan_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/vegan"
+                android:layout_marginBottom="20dp"
+                android:padding="16dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="Vegan"
+                android:textColor="@color/ak_text"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:fontFamily="monospace" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:id="@+id/high_protein_view"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:background="@color/colorDividerLight">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/high_protein"
+                android:layout_marginBottom="20dp"
+                android:tint="#000000"
+                android:padding="16dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="High Protein"
+                android:textColor="@color/ak_text"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:fontFamily="monospace" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/alcohol_free_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:orientation="horizontal"
             android:layout_weight="1">
 
-            <LinearLayout
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@color/colorDivider">
+                android:src="@drawable/alcohol_free"
+                android:layout_marginBottom="20dp"
+                android:padding="16dp" />
 
-                <ImageView
-                    android:padding="8dp"
-                    android:src="@drawable/high_protein"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="5" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="Alcoho Free"
+                android:textColor="@color/ak_text"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:fontFamily="monospace" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2"
-                    android:fontFamily="monospace"
-                    android:gravity="center"
-                    android:textSize="16sp"
-                    android:text="High Protein"
-                    android:textColor="@color/colorTextAndIcons" />
+        </RelativeLayout>
 
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"></LinearLayout>
-
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/vegetarian_view"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:orientation="horizontal"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="@color/colorDividerLight">
 
-            <LinearLayout
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@color/colorDivider">
+                android:src="@drawable/vegetarian"
+                android:tint="#000000"
+                android:layout_marginBottom="20dp"
+                android:padding="16dp" />
 
-                <ImageView
-                    android:padding="8dp"
-                    android:src="@drawable/vegetarian"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="5"
-                    android:tint="@color/colorTextAndIcons" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="Vegetarian"
+                android:textColor="@color/ak_text"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:fontFamily="monospace" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2"
-                    android:fontFamily="monospace"
-                    android:gravity="center"
-                    android:textSize="16sp"
-                    android:text="Vegetarian"
-                    android:textColor="@color/colorTextAndIcons" />
-
-            </LinearLayout>
-
-        </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
+
 
 </LinearLayout>

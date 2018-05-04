@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -35,6 +36,8 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         /* Set the content of the activity to use activity_menu.xml layout file */
         setContentView(R.layout.activity_shopping_list);
+
+        Toast.makeText(this, "Long Press Ingredients To Remove", Toast.LENGTH_SHORT).show();
 
         /* Set the toolbar as the action bar */
         Toolbar toolbar = findViewById(R.id.home_toolbar);
