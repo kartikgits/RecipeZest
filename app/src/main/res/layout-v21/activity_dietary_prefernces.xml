@@ -1,0 +1,114 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:text="Health"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:textSize="26sp"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@android:color/black"
+            android:background="#ccddff"
+            android:padding="16dp" />
+
+        <CheckBox
+            android:text="Balanced"
+            android:id="@+id/balanced"
+            android:layout_margin="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="21sp" />
+
+        <CheckBox
+            android:text="High Protien"
+            android:id="@+id/high_protein"
+            android:layout_margin="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="21sp" />
+
+        <CheckBox
+            android:text="Low Fat"
+            android:id="@+id/low_fat"
+            android:layout_margin="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="21sp" />
+
+        <CheckBox
+            android:text="Low Carb"
+            android:id="@+id/low_carb"
+            android:layout_margin="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="21sp" />
+
+        <CheckBox
+            android:text="vegan"
+            android:id="@+id/vegan"
+            android:layout_margin="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="21sp" />
+
+        <CheckBox
+            android:text="Vegetarian"
+            android:id="@+id/vegetarian"
+            android:layout_margin="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="21sp" />
+
+        <CheckBox
+            android:text="Sugar Conscious"
+            android:layout_margin="16dp"
+            android:id="@+id/sugar_conscious"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="21sp" />
+
+        <TextView
+            android:text="Allergies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:textSize="26sp"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@android:color/black"
+            android:background="#ccddff"
+            android:padding="16dp" />
+
+        <CheckBox
+            android:text="Peanut-Free"
+            android:id="@+id/peanut_free"
+            android:layout_margin="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="21sp" />
+
+        <CheckBox
+            android:text="Treenut-Free"
+            android:id="@+id/treenut_free"
+            android:layout_margin="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="21sp" />
+
+        <CheckBox
+            android:text="Alcohal-Free"
+            android:id="@+id/alcohal_free"
+            android:layout_margin="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="21sp" />
+
+    </LinearLayout>
+</ScrollView>

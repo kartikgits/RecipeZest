@@ -117,6 +117,12 @@ package="com.northwindlabs.kartikeya.recipezest">
         android:parentActivityName=".EdamamRecipeActivity"
         android:screenOrientation="portrait" />
 
+    <activity
+        android:name=".SettingDietaryPreferences"
+        android:theme="@style/AppTheme"
+        android:parentActivityName=".SettingsActivity"
+        android:screenOrientation="portrait" />
+
 </application>
 
 </manifest>

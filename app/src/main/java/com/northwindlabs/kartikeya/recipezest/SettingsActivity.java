@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 public class SettingsActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
@@ -113,5 +115,15 @@ public class SettingsActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public void rateUs(View view) {
+        Toast.makeText(this, "Rate Us On Play Store", Toast.LENGTH_SHORT).show();
+    }
+
+    public void onDietaryPreferences(View view) {
+        Intent intent = new Intent(getBaseContext(), SettingDietaryPreferences.class);
+        startActivity(intent);
     }
 }
