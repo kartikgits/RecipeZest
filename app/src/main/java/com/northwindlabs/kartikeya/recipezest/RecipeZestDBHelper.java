@@ -15,11 +15,18 @@ public class RecipeZestDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Create a String that contains the SQL statement to create the pets table
+        // Create a String that contains the SQL statement to create the ingredients table
         String SQL_CREATE_INGREDIENTS_TABLE = "CREATE TABLE " + RZestContract.IngredientsTable.TABLE_NAME + " ("
                 + RZestContract.IngredientsTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + RZestContract.IngredientsTable.COLUMN_RECIPE_NAME + " TEXT NOT NULL);";
         db.execSQL(SQL_CREATE_INGREDIENTS_TABLE);
+
+
+        // Create a String that contains the SQL statement to create the ingredients table
+        String SQL_CREATE_PREFERENCES_TABLE = "CREATE TABLE " + RZestContract.UserPreferences.TABLE_NAME + " ("
+                + RZestContract.UserPreferences._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + RZestContract.UserPreferences.COLUMN_PREFERENCE_NAME + " TEXT NOT NULL);";
+        db.execSQL(SQL_CREATE_PREFERENCES_TABLE);
     }
 
     /**

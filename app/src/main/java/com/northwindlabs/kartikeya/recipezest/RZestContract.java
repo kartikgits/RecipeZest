@@ -16,7 +16,7 @@ public final class RZestContract {
     public static final class IngredientsTable implements BaseColumns {
 
         /**
-         * Name of database table for
+         * Name of database table for ingredients
          */
         public final static String TABLE_NAME = "ingredients";
 
@@ -33,6 +33,32 @@ public final class RZestContract {
          * Type: TEXT
          */
         public final static String COLUMN_RECIPE_NAME = "recipeName";
+    }
+
+    /**
+     * Inner class that defines constant values for the user-preferences database table.
+     * Each entry in the table represents a single recipe.
+     */
+    public static final class UserPreferences implements BaseColumns {
+
+        /**
+         * Name of database table for user-preferences
+         */
+        public final static String TABLE_NAME = "user_preferences";
+
+        /**
+         * Unique ID number for the preferences (only for use in the database table).
+         * <p>
+         * Type: INTEGER
+         */
+        public final static String _ID = BaseColumns._ID;
+
+        /**
+         * Name of the ingredient.
+         * <p>
+         * Type: TEXT
+         */
+        public final static String COLUMN_PREFERENCE_NAME = "preferencesState";
     }
 
 }
