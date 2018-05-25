@@ -1,13 +1,12 @@
 package com.northwindlabs.kartikeya.recipezest;
 
+import android.support.v4.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,27 +27,22 @@ import java.util.List;
 /**
  * To display 'For You' Fragment
  */
-public class ForYouFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<FoodToForkRecipe>> {
+public class ForYouFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<EdamamRecipe>> {
 
-    private static final String LOG_TAG = "LocalRecipesFragment";
+    private static final String LOG_TAG = "ForYouFragment";
 
     private AVLoadingIndicatorView avi;
 
     /**
-     * Constant value for the FoodToFork-loader ID. We can choose any integer.
+     * Constant value for the Edamam-loader ID. We can choose any integer.
      * This really only comes into play if you're using multiple loaders.
      */
-    private static final int F2F_LOADER_ID = 2;
+    private static final int F2F_LOADER_ID = 8;
 
     /**
      * Adapter for the list of recipes
      */
-    private FoodToForkAdapter f2fAdapter;
-
-    /**
-     * Progress Bar to be show while data loading
-     */
-    //private ProgressBar progressBar;
+    private EdamamAdapter eAdapter;
 
     /**
      * TextView that is displayed when the list is empty
@@ -56,9 +50,28 @@ public class ForYouFragment extends Fragment implements LoaderManager.LoaderCall
     private TextView mEmptyStateTextView;
 
     /**
-     * URL for requesting recipe data from FoodToFork
+     * URL for requesting recipe data from Edamam
      */
-    private static final String F2F_REQUEST_URL = "http://food2fork.com/api/search?key=f0bcc213e09ecf97334084b8bc42b49a&q=soup";
+    private final String eRequestUrlQuery = "https://api.edamam.com/search?q=";
+
+    /**
+     * Place keyword like for eg. 'alcohol-free' for Alcohol Free category
+     * instead of 'alcohol%20free'
+     */
+    private final String eRequestUrlHealthLabel = "&app_id=8e776dd7&app_key=fccce5490f6d74ca24ea46bf81833ea8&from=0&to=30&health=";
+    private final String eRequestUrlDietLabel = "&app_id=8e776dd7&app_key=fccce5490f6d74ca24ea46bf81833ea8&from=0&to=30&diet=";
+    private final String eRequestUrlNoLabel = "&app_id=8e776dd7&app_key=fccce5490f6d74ca24ea46bf81833ea8&from=0&to=30";
+
+    /**
+     * final URL
+     */
+    private String completeEUrl = null;
+
+    /**
+     * Recipe category variable. Value will be received through calling intent
+     */
+    private String recipeCategory;
+
 
 
     @Override
@@ -69,37 +82,41 @@ public class ForYouFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.example_fragment_for_you, container, false);
+        View view = inflater.inflate(R.layout.activity_top_rated_f2f_recipes, container, false);
         // Find a reference to the {@link ListView} in the layout
-        ListView f2fRecipesListView = view.findViewById(R.id.list);
+        ListView listView = view.findViewById(R.id.list);
 
         //Set an empty view
         mEmptyStateTextView = view.findViewById(R.id.empty_view);
-        f2fRecipesListView.setEmptyView(mEmptyStateTextView);
+        listView.setEmptyView(mEmptyStateTextView);
 
         // Create a new adapter that takes an empty list of recipes as input
-        f2fAdapter = new FoodToForkAdapter(getActivity(), new ArrayList<FoodToForkRecipe>());
+        eAdapter = new EdamamAdapter(getActivity(), new ArrayList<EdamamRecipe>());
 
         // Set the adapter on the {@link ListView}
         // so the list can be populated in the user interface
-        f2fRecipesListView.setAdapter(f2fAdapter);
+        listView.setAdapter(eAdapter);
 
         // Set an item click listener on the ListView, which sends an intent to a web browser
         // to open a website with more information about the selected recipe.
-        f2fRecipesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 // Find the current recipe that was clicked on
-                FoodToForkRecipe currentRecipe = f2fAdapter.getItem(position);
+                EdamamRecipe currentRecipe = eAdapter.getItem(position);
 
                 // Convert the String URL into a URI object (to pass into the Intent constructor)
-                Uri f2fUri = Uri.parse(currentRecipe.getF2fUrl());
+//                Uri recipeUri = Uri.parse(currentRecipe.getUrl());
 
-                // Create a new intent to view the recipe URI
-                Intent websiteIntent = new Intent(Intent.ACTION_VIEW, f2fUri);
+                Intent intent = new Intent(getContext(), EdamamDetailRecipeActivity.class);
+                intent.putExtra("edamamRecipeObject", currentRecipe);
+                startActivity(intent);
 
-                // Send the intent to launch a new activity
-                startActivity(websiteIntent);
+//                // Create a new intent to view the recipe URI
+//                Intent websiteIntent = new Intent(Intent.ACTION_VIEW, recipeUri);
+//
+//                // Send the intent to launch a new activity
+//                startActivity(websiteIntent);
             }
         });
 
@@ -129,14 +146,14 @@ public class ForYouFragment extends Fragment implements LoaderManager.LoaderCall
 
 
     @Override
-    public android.support.v4.content.Loader<List<FoodToForkRecipe>> onCreateLoader(int id, Bundle args) {
+    public android.support.v4.content.Loader<List<EdamamRecipe>> onCreateLoader(int id, Bundle args) {
         Log.i(LOG_TAG, "onCreateLoader() called.");
-        return new FoodToForkRecipeLoader(getContext(), F2F_REQUEST_URL);
+        return new EdamamV4RecipeLoader(getContext(), getCompleteEUrl());
     }
 
 
     @Override
-    public void onLoadFinished(android.support.v4.content.Loader<List<FoodToForkRecipe>> loader, List<FoodToForkRecipe> recipes) {
+    public void onLoadFinished(android.support.v4.content.Loader<List<EdamamRecipe>> loader, List<EdamamRecipe> recipes) {
         //After the load is finished, we need to remove the progress bar
         avi = getView().findViewById(R.id.loading_spinner);
         avi.setVisibility(View.GONE);
@@ -144,21 +161,34 @@ public class ForYouFragment extends Fragment implements LoaderManager.LoaderCall
         mEmptyStateTextView.setText(R.string.no_recipes);
         Log.i(LOG_TAG, "onLoadFinished called.");
         // Clear the adapter of previous recipe data
-        f2fAdapter.clear();
+        eAdapter.clear();
 
         // If there is a valid list of Recipes, then add them to the adapter's
         // data set. This will trigger the ListView to update.
         if (recipes != null && !recipes.isEmpty()) {
             //can comment out this line to act as if there were no data on the server
-            f2fAdapter.addAll(recipes);
+            eAdapter.addAll(recipes);
         }
     }
 
 
     @Override
-    public void onLoaderReset(android.support.v4.content.Loader<List<FoodToForkRecipe>> loader) {
+    public void onLoaderReset(android.support.v4.content.Loader<List<EdamamRecipe>> loader) {
         Log.i(LOG_TAG, "onLoaderReset called.");
         // Loader reset, so we can clear out our existing data.
-        f2fAdapter.clear();
+        eAdapter.clear();
+    }
+
+    public String getCompleteEUrl() {
+        String currentDHLabel = RandomsGenerator.getRandomDHLabel(getContext());
+        if (currentDHLabel.equals("balanced") || currentDHLabel.equals("high-protein") ||
+                currentDHLabel.equals("low-fat") || currentDHLabel.equals("low-carb")) {
+            completeEUrl = eRequestUrlQuery + RandomsGenerator.getRandomAlphabet() + eRequestUrlDietLabel + currentDHLabel;
+        } else if (currentDHLabel.equals("no-label")) {
+            completeEUrl = eRequestUrlQuery + RandomsGenerator.getRandomAlphabet() + eRequestUrlNoLabel;
+        } else {
+            completeEUrl = eRequestUrlQuery + RandomsGenerator.getRandomAlphabet() + eRequestUrlHealthLabel + currentDHLabel;
+        }
+        return completeEUrl;
     }
 }

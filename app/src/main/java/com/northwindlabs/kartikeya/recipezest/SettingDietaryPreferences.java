@@ -1,6 +1,5 @@
 package com.northwindlabs.kartikeya.recipezest;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -8,13 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import static com.northwindlabs.kartikeya.recipezest.RZestContract.UserPreferences.COLUMN_PREFERENCE_NAME;
 import static com.northwindlabs.kartikeya.recipezest.RZestContract.UserPreferences.TABLE_NAME;
-import static com.northwindlabs.kartikeya.recipezest.RZestContract.UserPreferences._ID;
 
 public class SettingDietaryPreferences extends AppCompatActivity {
 
@@ -57,15 +54,15 @@ public class SettingDietaryPreferences extends AppCompatActivity {
         balancedCheckbox.setChecked(checkState);
 
         CheckBox highProteinCheckbox = findViewById(R.id.high_protein);
-        checkState = preferencesArrayList.contains("high_protein");
+        checkState = preferencesArrayList.contains("high-protein");
         highProteinCheckbox.setChecked(checkState);
 
         CheckBox lowFatCheckbox = findViewById(R.id.low_fat);
-        checkState = preferencesArrayList.contains("low_fat");
+        checkState = preferencesArrayList.contains("low-fat");
         lowFatCheckbox.setChecked(checkState);
 
         CheckBox lowCarbCheckbox = findViewById(R.id.low_carb);
-        checkState = preferencesArrayList.contains("low_carb");
+        checkState = preferencesArrayList.contains("low-carb");
         lowCarbCheckbox.setChecked(checkState);
 
         CheckBox veganCheckbox = findViewById(R.id.vegan);
@@ -77,19 +74,19 @@ public class SettingDietaryPreferences extends AppCompatActivity {
         vegetarianCheckbox.setChecked(checkState);
 
         CheckBox sugarConsciousCheckbox = findViewById(R.id.sugar_conscious);
-        checkState = preferencesArrayList.contains("sugar_conscious");
+        checkState = preferencesArrayList.contains("sugar-conscious");
         sugarConsciousCheckbox.setChecked(checkState);
 
         CheckBox peanutFreeCheckbox = findViewById(R.id.peanut_free);
-        checkState = preferencesArrayList.contains("peanut_free");
+        checkState = preferencesArrayList.contains("peanut-free");
         peanutFreeCheckbox.setChecked(checkState);
 
         CheckBox treenutFreeCheckbox = findViewById(R.id.treenut_free);
-        checkState = preferencesArrayList.contains("treenut_free");
+        checkState = preferencesArrayList.contains("tree-nut-free");
         treenutFreeCheckbox.setChecked(checkState);
 
         CheckBox alcoholCheckbox = findViewById(R.id.alcohal_free);
-        checkState = preferencesArrayList.contains("alcohol_free");
+        checkState = preferencesArrayList.contains("alcohol-free");
         alcoholCheckbox.setChecked(checkState);
 
         //Detect checkbox state changes and apply corresponding changes in database
@@ -110,9 +107,9 @@ public class SettingDietaryPreferences extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    addPreferenceToDatabase("high_protein");
+                    addPreferenceToDatabase("high-protein");
                 } else {
-                    removePreferenceFromDatabase("high_protein");
+                    removePreferenceFromDatabase("high-protein");
                 }
 
             }
@@ -123,9 +120,9 @@ public class SettingDietaryPreferences extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    addPreferenceToDatabase("low_fat");
+                    addPreferenceToDatabase("low-fat");
                 } else {
-                    removePreferenceFromDatabase("low_fat");
+                    removePreferenceFromDatabase("low-fat");
                 }
 
             }
@@ -136,9 +133,9 @@ public class SettingDietaryPreferences extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    addPreferenceToDatabase("low_carb");
+                    addPreferenceToDatabase("low-carb");
                 } else {
-                    removePreferenceFromDatabase("low_carb");
+                    removePreferenceFromDatabase("low-carb");
                 }
 
             }
@@ -175,9 +172,9 @@ public class SettingDietaryPreferences extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    addPreferenceToDatabase("sugar_conscious");
+                    addPreferenceToDatabase("sugar-conscious");
                 } else {
-                    removePreferenceFromDatabase("sugar_conscious");
+                    removePreferenceFromDatabase("sugar-conscious");
                 }
 
             }
@@ -188,9 +185,9 @@ public class SettingDietaryPreferences extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    addPreferenceToDatabase("peanut_free");
+                    addPreferenceToDatabase("peanut-free");
                 } else {
-                    removePreferenceFromDatabase("peanut_free");
+                    removePreferenceFromDatabase("peanut-free");
                 }
 
             }
@@ -201,9 +198,9 @@ public class SettingDietaryPreferences extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    addPreferenceToDatabase("treenut_free");
+                    addPreferenceToDatabase("tree-nut-free");
                 } else {
-                    removePreferenceFromDatabase("treenut_free");
+                    removePreferenceFromDatabase("tree-nut-free");
                 }
 
             }
@@ -214,9 +211,9 @@ public class SettingDietaryPreferences extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    addPreferenceToDatabase("alcohol_free");
+                    addPreferenceToDatabase("alcohol-free");
                 } else {
-                    removePreferenceFromDatabase("alcohol_free");
+                    removePreferenceFromDatabase("alcohol-free");
                 }
 
             }
