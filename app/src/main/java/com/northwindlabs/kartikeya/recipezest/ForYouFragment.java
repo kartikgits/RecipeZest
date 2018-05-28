@@ -105,18 +105,9 @@ public class ForYouFragment extends Fragment implements LoaderManager.LoaderCall
                 // Find the current recipe that was clicked on
                 EdamamRecipe currentRecipe = eAdapter.getItem(position);
 
-                // Convert the String URL into a URI object (to pass into the Intent constructor)
-//                Uri recipeUri = Uri.parse(currentRecipe.getUrl());
-
                 Intent intent = new Intent(getContext(), EdamamDetailRecipeActivity.class);
                 intent.putExtra("edamamRecipeObject", currentRecipe);
                 startActivity(intent);
-
-//                // Create a new intent to view the recipe URI
-//                Intent websiteIntent = new Intent(Intent.ACTION_VIEW, recipeUri);
-//
-//                // Send the intent to launch a new activity
-//                startActivity(websiteIntent);
             }
         });
 

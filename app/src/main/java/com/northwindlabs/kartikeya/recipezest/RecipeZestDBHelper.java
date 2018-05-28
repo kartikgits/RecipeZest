@@ -27,6 +27,15 @@ public class RecipeZestDBHelper extends SQLiteOpenHelper {
                 + RZestContract.UserPreferences._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + RZestContract.UserPreferences.COLUMN_PREFERENCE_NAME + " TEXT NOT NULL);";
         db.execSQL(SQL_CREATE_PREFERENCES_TABLE);
+
+        // Create a String that contains the SQL statement to create the favorites table
+        String SQL_CREATE_FAVORITES_TABLE = "CREATE TABLE " + RZestContract.UserFavorites.TABLE_NAME + " ("
+                + RZestContract.UserFavorites._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + RZestContract.UserFavorites.COLUMN_FAVORITE_RECIPE_NAME + " TEXT NOT NULL);"
+                + RZestContract.UserFavorites.COLUMN_FAVORITE_RECIPE_IMAGE + " TEXT NOT NULL);"
+                + RZestContract.UserFavorites.COLUMN_FAVORITE_RECIPE_URL + " TEXT NOT NULL);"
+                + RZestContract.UserFavorites.COLUMN_FAVORITE_RECIPE_PUBLISHER + " TEXT NOT NULL);";
+        db.execSQL(SQL_CREATE_PREFERENCES_TABLE);
     }
 
     /**

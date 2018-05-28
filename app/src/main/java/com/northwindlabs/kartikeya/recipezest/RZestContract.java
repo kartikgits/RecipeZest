@@ -61,4 +61,51 @@ public final class RZestContract {
         public final static String COLUMN_PREFERENCE_NAME = "preferencesState";
     }
 
+    /**
+     * Inner class that defines constant values for the user database table.
+     * Each entry in the table represents a single recipe.
+     */
+    public static final class UserFavorites implements BaseColumns {
+
+        /**
+         * Name of database table for user-preferences
+         */
+        public final static String TABLE_NAME = "user_favorites";
+
+        /**
+         * Unique ID number for the favorites (only for use in the database table).
+         * <p>
+         * Type: INTEGER
+         */
+        public final static String _ID = BaseColumns._ID;
+
+        /**
+         * Name of the recipe.
+         * <p>
+         * Type: TEXT
+         */
+        public final static String COLUMN_FAVORITE_RECIPE_NAME = "favoriteRecipe";
+
+        /**
+         * Url of the recipe.
+         * <p>
+         * Type: TEXT
+         */
+        public final static String COLUMN_FAVORITE_RECIPE_URL = "recipeUrl";
+
+        /**
+         * Url of the recipe.
+         * <p>
+         * Type: TEXT
+         */
+        public final static String COLUMN_FAVORITE_RECIPE_IMAGE = "recipeImage";
+
+        /**
+         * Url of the recipe.
+         * <p>
+         * Type: TEXT
+         */
+        public final static String COLUMN_FAVORITE_RECIPE_PUBLISHER = "recipePublisher";
+    }
+
 }
