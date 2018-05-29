@@ -17,11 +17,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import javax.annotation.Nullable;
+
+import static com.northwindlabs.kartikeya.recipezest.RZestContract.UserFavorites.COLUMN_FAVORITE_RECIPE_NAME;
+import static com.northwindlabs.kartikeya.recipezest.RZestContract.UserFavorites.TABLE_NAME;
 
 public class EdamamDetailRecipeActivity extends AppCompatActivity {
 
@@ -90,8 +95,24 @@ public class EdamamDetailRecipeActivity extends AppCompatActivity {
             }
         });
 
-        //For creating key-value pairs to be stored in database
-        final ContentValues values = new ContentValues();
+        LikeButton likeButton = findViewById(R.id.like_button);
+        likeButton.setOnLikeListener(new OnLikeListener() {
+            @Override
+            public void liked(LikeButton likeButton) {
+                //For creating key-value pairs to be stored in database
+                final ContentValues values = new ContentValues();
+                values.put(RZestContract.UserFavorites.COLUMN_FAVORITE_RECIPE_NAME, currentRecipe.getTitle());
+                values.put(RZestContract.UserFavorites.COLUMN_FAVORITE_RECIPE_IMAGE, currentRecipe.getImageUrl());
+                values.put(RZestContract.UserFavorites.COLUMN_FAVORITE_RECIPE_PUBLISHER, currentRecipe.getSource());
+                values.put(RZestContract.UserFavorites.COLUMN_FAVORITE_RECIPE_URL, currentRecipe.getUrl());
+                insertRecipeToFavorites(values);
+            }
+
+            @Override
+            public void unLiked(LikeButton likeButton) {
+                removeRecipeFromFavorites(currentRecipe.getTitle());
+            }
+        });
 
         // Set an item click listener on the ListView, which sends an intent to a web browser
         // to open a website with more information about the selected recipe.
@@ -100,31 +121,12 @@ public class EdamamDetailRecipeActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 // Find the current recipe that was clicked on
                 String currentIngredient = eAdapter.getItem(position);
-
-                // Convert the String URL into a URI object (to pass into the Intent constructor)
-//                Uri recipeUri = Uri.parse(currentRecipe.getUrl());
-
+                //For creating key-value pairs to be stored in database
+                final ContentValues values = new ContentValues();
                 values.put(RZestContract.IngredientsTable.COLUMN_RECIPE_NAME, currentIngredient);
                 insertIngredientToDatabase(values);
-
-
-//                // Create a new intent to view the recipe URI
-//                Intent websiteIntent = new Intent(Intent.ACTION_VIEW, recipeUri);
-//
-//                // Send the intent to launch a new activity
-//                startActivity(websiteIntent);
             }
         });
-
-//        Button listAddButton = findViewById(R.id.add_to_list_button);
-//        listAddButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                for (int i = 0; i<currentRecipe.getIngredientsArrayListSize(); i++){
-//                    if (eAdapter.getItem(i).)
-//                }
-//            }
-//        });
     }
 
     private void insertIngredientToDatabase(ContentValues value) {
@@ -134,7 +136,7 @@ public class EdamamDetailRecipeActivity extends AppCompatActivity {
         // Gets the database in write mode
         db = mDbHelper.getWritableDatabase();
 
-        // Insert a new row for ingeredient in the database, returning the ID of that new row.
+        // Insert a new row for ingredient in the database, returning the ID of that new row.
         long newRowId = db.insert(RZestContract.IngredientsTable.TABLE_NAME, null, value);
 
         // Show a toast message depending on whether or not the insertion was successful
@@ -145,5 +147,32 @@ public class EdamamDetailRecipeActivity extends AppCompatActivity {
             // Otherwise, the insertion was successful and we can display a toast with the row ID.
             Toast.makeText(this, "Added to Shopping List ", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void insertRecipeToFavorites(ContentValues values) {
+        // Create database helper
+        mDbHelper = new RecipeZestDBHelper(this);
+
+        // Gets the database in write mode
+        db = mDbHelper.getWritableDatabase();
+
+        // Insert a new row for ingredient in the database, returning the ID of that new row.
+        long newRowId = db.insert(TABLE_NAME, null, values);
+
+        // Show a toast message depending on whether or not the insertion was successful
+        if (newRowId == -1) {
+            // If the row ID is -1, then there was an error with insertion.
+            Toast.makeText(this, "Error with adding to favorites", Toast.LENGTH_SHORT).show();
+        } else {
+            // Otherwise, the insertion was successful and we can display a toast with the row ID.
+            Toast.makeText(this, "Added to Favorites", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void removeRecipeFromFavorites(String recipeName) {
+        mDbHelper = new RecipeZestDBHelper(this);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        db.execSQL("delete from " + TABLE_NAME + " where " + COLUMN_FAVORITE_RECIPE_NAME + " = '" + recipeName + "'");
+        Toast.makeText(this, "Removed from Favorites", Toast.LENGTH_SHORT).show();
     }
 }

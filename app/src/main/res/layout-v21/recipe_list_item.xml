@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="144dp">
@@ -35,35 +34,17 @@
             android:textColor="@color/accountLabel"
             android:fontFamily="cursive" />
 
-        <RelativeLayout
+        <TextView
+            android:id="@+id/f2f_recipe_publisher"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true">
-
-            <TextView
-                android:id="@+id/f2f_recipe_publisher"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="Publisher Name"
-                android:textSize="14sp"
-                android:textColor="@color/accountText"
-                android:fontFamily="monospace"
-                android:layout_alignParentBottom="true" />
-
-            <com.like.LikeButton
-                app:icon_type="heart"
-                app:icon_size="24dp"
-                android:id="@+id/star_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                app:liked="false" />
-
-
-        </RelativeLayout>
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Publisher Name"
+            android:textSize="14sp"
+            android:textColor="@color/accountText"
+            android:fontFamily="monospace"
+            android:layout_alignParentBottom="true" />
 
     </RelativeLayout>
 

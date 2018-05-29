@@ -16,26 +16,26 @@ public class RecipeZestDBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Create a String that contains the SQL statement to create the ingredients table
-        String SQL_CREATE_INGREDIENTS_TABLE = "CREATE TABLE " + RZestContract.IngredientsTable.TABLE_NAME + " ("
+        String SQL_CREATE_INGREDIENTS_TABLE = "CREATE TABLE IF NOT EXISTS " + RZestContract.IngredientsTable.TABLE_NAME + " ("
                 + RZestContract.IngredientsTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + RZestContract.IngredientsTable.COLUMN_RECIPE_NAME + " TEXT NOT NULL);";
         db.execSQL(SQL_CREATE_INGREDIENTS_TABLE);
 
 
         // Create a String that contains the SQL statement to create the ingredients table
-        String SQL_CREATE_PREFERENCES_TABLE = "CREATE TABLE " + RZestContract.UserPreferences.TABLE_NAME + " ("
+        String SQL_CREATE_PREFERENCES_TABLE = "CREATE TABLE IF NOT EXISTS " + RZestContract.UserPreferences.TABLE_NAME + " ("
                 + RZestContract.UserPreferences._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + RZestContract.UserPreferences.COLUMN_PREFERENCE_NAME + " TEXT NOT NULL);";
         db.execSQL(SQL_CREATE_PREFERENCES_TABLE);
 
         // Create a String that contains the SQL statement to create the favorites table
-        String SQL_CREATE_FAVORITES_TABLE = "CREATE TABLE " + RZestContract.UserFavorites.TABLE_NAME + " ("
+        String SQL_CREATE_FAVORITES_TABLE = "CREATE TABLE IF NOT EXISTS " + RZestContract.UserFavorites.TABLE_NAME + " ("
                 + RZestContract.UserFavorites._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + RZestContract.UserFavorites.COLUMN_FAVORITE_RECIPE_NAME + " TEXT NOT NULL);"
-                + RZestContract.UserFavorites.COLUMN_FAVORITE_RECIPE_IMAGE + " TEXT NOT NULL);"
-                + RZestContract.UserFavorites.COLUMN_FAVORITE_RECIPE_URL + " TEXT NOT NULL);"
+                + RZestContract.UserFavorites.COLUMN_FAVORITE_RECIPE_NAME + " TEXT NOT NULL, "
+                + RZestContract.UserFavorites.COLUMN_FAVORITE_RECIPE_IMAGE + " TEXT NOT NULL, "
+                + RZestContract.UserFavorites.COLUMN_FAVORITE_RECIPE_URL + " TEXT NOT NULL, "
                 + RZestContract.UserFavorites.COLUMN_FAVORITE_RECIPE_PUBLISHER + " TEXT NOT NULL);";
-        db.execSQL(SQL_CREATE_PREFERENCES_TABLE);
+        db.execSQL(SQL_CREATE_FAVORITES_TABLE);
     }
 
     /**
