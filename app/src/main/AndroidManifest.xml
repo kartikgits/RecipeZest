@@ -60,7 +60,7 @@ package="com.northwindlabs.kartikeya.recipezest">
 
     <activity
         android:name="com.northwindlabs.kartikeya.recipezest.AccountActivity"
-        android:label="@string/account"
+        android:theme="@style/AppBarOverlay"
         android:screenOrientation="portrait" />
 
     <activity

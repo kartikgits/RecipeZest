@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         FontHelper.setCustomTypeface(findViewById(R.id.view_root));
 
-        fbLoginButton = (LoginButton) findViewById(R.id.facebook_login_button);
+        fbLoginButton = findViewById(R.id.facebook_login_button);
         fbLoginButton.setReadPermissions("email");
 
         // Login Button callback registration
@@ -132,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
      * once we are done with login.
      */
     private void launchAccountActivity() {
-        Intent intent = new Intent(this, AccountActivity.class);
+        Intent intent = new Intent(this, RecipeActivity.class);
         startActivity(intent);
         finish(); //Finishing the current Activity
     }
