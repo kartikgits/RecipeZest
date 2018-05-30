@@ -1,16 +1,16 @@
-#Recipe Zest
+# Recipe Zest
 
 Recipe Zest is an android application for searching and saving recipes. The app provides the users with distinct features such as Shopping List where the users can select and add ingredients that need to be purchased. A unique feature of this app is that it would give local recipes suggestion to the user based on the user’s current location. The project has been implemented using JAVA, XML, JSON and various recipe APIs.
 
 
 
-#Getting Started
+## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development, testing purposes and deployment purposes.
 
 
 
-#Installing
+## Installing
 
 Recipe Zest can be installed on any Android mobile phone running versions greater than Android Lollipop (Android Version 5.0.0).
 The app is best run on Android Lollipop and is targeted towards the same.
@@ -21,26 +21,26 @@ A copy of code can be found in the CD.
 
 
 
-#Versioning
+## Versioning
 
 We use Github for versioning. An up-to-date copy of code can be found at https://github.com/kartikgits/RecipeZest
 
 
 
-#Development Environment
+## Development Environment
 
 The project has been developed on a Windows 8.1 OS using Java JDK (http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html), Android Studio (https://developer.android.com/studio/) and Git (https://git-scm.com/downloads).
 
 
 
-#Authors
+## Authors
 
 Kartikeya Kapparwan - Doon University
 Neha Panwar - Doon University
 
 
 
-#Acknowledgement
+## Acknowledgement
 
 Android Official Documentation
 StackOverflow
