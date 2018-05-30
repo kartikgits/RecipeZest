@@ -75,34 +75,6 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:padding="8dp"
-                android:onClick="getLocation">
-
-                <TextView
-                    android:id="@+id/location"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:gravity="center_vertical"
-                    android:text="Location"
-                    android:textColor="@android:color/white"
-                    android:textSize="22sp" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="18dp"
-                    android:src="@drawable/ic_keyboard_arrow_right_white_24dp" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_marginTop="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorAccentDark"
-                android:clickable="true"
-                android:focusable="true"
-                android:padding="8dp"
                 android:onClick="rateUs">
 
                 <TextView

@@ -16,7 +16,9 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -119,6 +121,7 @@ public class MyFavoriteActivity extends AppCompatActivity {
         );
 
         ListView favoriteListView = findViewById(R.id.list);
+        TextView emptyStateView = findViewById(R.id.empty_view);
 
         // Create a new adapter that takes an empty list of recipes as input
         f2fAdapter = new FoodToForkAdapter(this, new ArrayList<FoodToForkRecipe>());
@@ -146,6 +149,12 @@ public class MyFavoriteActivity extends AppCompatActivity {
         }
         //Invalidating the cursor, hence, releasing the resources.
         mCursor.close();
+
+        if (favoritesArrayList.size() > 0) {
+            emptyStateView.setVisibility(View.INVISIBLE);
+        } else {
+            emptyStateView.setVisibility(View.VISIBLE);
+        }
 
         f2fAdapter.addAll(favoritesArrayList);
 
@@ -198,6 +207,22 @@ public class MyFavoriteActivity extends AppCompatActivity {
 
                 // Send the intent to launch a new activity
                 startActivity(websiteIntent);
+            }
+        });
+
+        Button clearListButton = findViewById(R.id.clear_button);
+        clearListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RecipeZestDBHelper mDbHelper = new RecipeZestDBHelper(getBaseContext());
+                // Create and/or open a database to read from it
+                SQLiteDatabase db = mDbHelper.getReadableDatabase();
+                db.execSQL("delete from " + TABLE_NAME);
+                //To refresh activity
+                Intent intent = getIntent();
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                finish();
+                startActivity(intent);
             }
         });
 

@@ -35,7 +35,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_weight="40"></LinearLayout>
+                android:layout_weight="40">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextAndIcons"
+                    android:textSize="24sp"
+                    android:text="@string/aboutUs"
+                    android:padding="16dp"
+                    android:fontFamily="monospace"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/about_us_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp"
+                    android:textColor="@color/colorTextAndIcons"
+                    android:fontFamily="monospace"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

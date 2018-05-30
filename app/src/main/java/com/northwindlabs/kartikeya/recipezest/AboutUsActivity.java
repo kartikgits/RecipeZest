@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import de.psdev.licensesdialog.LicensesDialog;
 
@@ -105,6 +106,14 @@ public class AboutUsActivity extends AppCompatActivity {
                     }
                 }
         );
+
+        TextView textView = findViewById(R.id.about_us_text);
+        String aboutText = "Recipe Zest is an under development Android application to be made public soon. " +
+                "It was developed by Kartikeya Kapparwan and Neha Panwar as a semester long project in Doon University. " +
+                "Whether it is finding a recipe, saving it for quicker access, getting local or personalised suggestions... Recipe Zest is there for your help. " +
+                "We have over 3 million recipes powered by some of the best recipe APIs.\n\n" +
+                "Finding recipes was never so easy. Happy Cooking!";
+        textView.setText(aboutText);
     }
 
     //Open the drawer when the button is tapped

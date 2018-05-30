@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -47,6 +48,8 @@ public class ShoppingListActivity extends AppCompatActivity {
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
+
+        TextView emptyStateView = findViewById(R.id.empty_view);
 
         /* Navigation drawer */
         mDrawerLayout = findViewById(R.id.drawer_layout);
@@ -120,6 +123,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         );
 
         ListView ingredientsListView = findViewById(R.id.edamam_ingredients_list_view);
+        Button mailListButton = findViewById(R.id.mail_button);
 
         // Create a new adapter that takes an empty list of recipes as input
         eAdapter = new EdamamIngredientListAdapter(this, new ArrayList<String>());
@@ -143,6 +147,13 @@ public class ShoppingListActivity extends AppCompatActivity {
         }
         //Invalidating the cursor, hence, releasing the resources.
         mCursor.close();
+
+        if (ingredientsArrayList.size() > 0) {
+            emptyStateView.setVisibility(View.INVISIBLE);
+        } else {
+            emptyStateView.setVisibility(View.VISIBLE);
+            mailListButton.setVisibility(View.GONE);
+        }
 
         eAdapter.addAll(ingredientsArrayList);
 
@@ -180,7 +191,6 @@ public class ShoppingListActivity extends AppCompatActivity {
             }
         });
 
-        Button mailListButton = findViewById(R.id.mail_button);
         mailListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
